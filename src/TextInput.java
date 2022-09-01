@@ -22,14 +22,13 @@ public class TextInput {
 		currentText="";
 		do{
 			//Takes and splits the input
-			input = textRead.next();
+			input = textRead.nextLine();
 			command=input.charAt(0);
-			currentText="";
 			if(input.length()>2) {
 				currentText=input.substring(2);
 			}
 			switch(command) {
-			case 'I':
+			case 'l':
 			case 'L':
 				//Print all Strings
 				for(int i=0;i<storedStrings.size();i++) {
@@ -37,6 +36,7 @@ public class TextInput {
 				}
 				break;
 			case 'a':
+			case 'A':
 				//Adds the text after the command, if there is text
 				if(!currentText.equals("")) {
 					storedStrings.add(currentText);
@@ -45,6 +45,21 @@ public class TextInput {
 					System.out.println("No text to add");
 				}
 					
+				break;
+			case 'i':
+			case 'I':
+				//Adds the text after the command at a specific line, if there is text
+				if(!currentText.equals("")) {
+					int line = Character.getNumericValue(currentText.charAt(0));
+					storedStrings.add(storedStrings.get(storedStrings.size()-1));
+					for(int i =storedStrings.size()-2;i>line;i--) {
+						storedStrings.set(i, storedStrings.get(i-1));
+					}
+					storedStrings.set(line,currentText.substring(2));
+					System.out.println("added " + currentText.substring(2));
+				}else {
+					System.out.println("No text to add");
+				}
 				break;
 			}
 		}while(!(command=='e'));
