@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class TextInput {
 
@@ -73,18 +76,53 @@ public class TextInput {
 				int Rline2 = Character.getNumericValue(currentText.charAt(2));
 				String Rtemp = storedStrings.get(Rline1);
 				storedStrings.set(Rline1, storedStrings.get(Rline2));
-				storedStrings.set(Rline2, temp);
+				storedStrings.set(Rline2, Rtemp);
 				System.out.println("Swapped " + storedStrings.get(Rline2) +" and " + storedStrings.get(Rline1));
 				break;
 			case 'e':
 			case 'E':
+				//Changes the text of a line to the given text
 				int Eline = Character.getNumericValue(currentText.charAt(0));
 				String Etemp = storedStrings.get(Eline);
 				storedStrings.set(Eline, currentText.substring(2));
 				System.out.println("Changed " +Etemp + " to " + storedStrings.get(Eline));
 				break;
+			case 'f':
+			case 'F':
+				try {
+					//Saves the current lines to a given file
+					File fr = new File("lines.txt");
+					Scanner read = new Scanner(fr);
+					storedStrings.clear();
+					while(read.hasNext()) {
+						String currentRead = read.nextLine();
+						storedStrings.add(currentRead);
+					}	
+					read.close();
+					System.out.println("File read in");
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+				break;
+			case 's':
+			case 'S':
+				try {
+					//Clears the list of lines and reads in new lines from a file
+					File fw = new File("lines.txt");
+					PrintWriter write = new PrintWriter(fw);
+					write.print("");
+					for(int i=0;i<storedStrings.size();i++) {
+						write.println(storedStrings.get(i));
+					}
+					System.out.println("New lines saved to file");
+					write.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+				break;
+				
 			}
-		}while(!(command=='e'));
+		}while(!(command=='x'));
 		System.out.println("exiting");
 		
 		textRead.close();
