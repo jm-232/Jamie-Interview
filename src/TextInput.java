@@ -13,9 +13,7 @@ public class TextInput {
 		Scanner textRead = new Scanner(System.in);
 		String currentText = "";
 		
-		System.out.println("Welcome!");
-		System.out.println("I,l = Print All");
-		System.out.println("e = Exit");
+		System.out.println("Welcome! \n Please Enter a Command");
 		
 		String input;
 		char command='I';
@@ -60,6 +58,30 @@ public class TextInput {
 				}else {
 					System.out.println("No text to add");
 				}
+				break;
+			case 'd':
+			case 'D':
+				//Deletes Line at given int
+				int Dline = Character.getNumericValue(currentText.charAt(0));
+				System.out.println("Removed " + storedStrings.get(Dline));
+				storedStrings.remove(Dline);
+				break;
+			case 'r':
+			case 'R':
+				//Swaps the lines of two given ints
+				int Rline1 = Character.getNumericValue(currentText.charAt(0));
+				int Rline2 = Character.getNumericValue(currentText.charAt(2));
+				String Rtemp = storedStrings.get(Rline1);
+				storedStrings.set(Rline1, storedStrings.get(Rline2));
+				storedStrings.set(Rline2, temp);
+				System.out.println("Swapped " + storedStrings.get(Rline2) +" and " + storedStrings.get(Rline1));
+				break;
+			case 'e':
+			case 'E':
+				int Eline = Character.getNumericValue(currentText.charAt(0));
+				String Etemp = storedStrings.get(Eline);
+				storedStrings.set(Eline, currentText.substring(2));
+				System.out.println("Changed " +Etemp + " to " + storedStrings.get(Eline));
 				break;
 			}
 		}while(!(command=='e'));
